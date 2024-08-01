@@ -3,7 +3,7 @@ import { logout, signin, signup } from "../controllers/authController";
 
 const authRoutes = express.Router();
 
-authRoutes.get("/signup", signup);
+authRoutes.post("/signup", signup);
 
 authRoutes.get("/signin", signin);
 
