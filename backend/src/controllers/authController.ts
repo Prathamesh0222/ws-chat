@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import userModel from "../models/userModel";
 import bcrypt from "bcryptjs";
+import generateToken from "../utils/token";
 
 export const signup = async (req: Request, res: Response) => {
     try {
@@ -30,6 +31,7 @@ export const signup = async (req: Request, res: Response) => {
         })
 
         if (newUser) {
+            await generateToken(newUser._id.toString(), res);
             await newUser.save();
 
             res.status(200).json({
@@ -52,9 +54,32 @@ export const signup = async (req: Request, res: Response) => {
     }
 }
 
-export const signin = (req: Request, res: Response) => {
-    console.log("Signin User");
-    res.json({ message: "Signin User" });
+export const signin = async (req: Request, res: Response) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userModel.findOne({
+            username
+        });
+        const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
+        if (!user || !isPasswordCorrect) {
+            return res.status(400).json({
+                error: "Invalid username or password"
+            })
+        }
+        await generateToken(user._id.toString(), res);
+
+        res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            username: user.username,
+            profilePic: user.profilePic
+        })
+    } catch (error) {
+        console.log("Error while signin", error);
+        res.status(500).json({
+            error: "Internal Server Error"
+        })
+    }
 }
 
 export const logout = (req: Request, res: Response) => {
