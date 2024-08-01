@@ -83,7 +83,16 @@ export const signin = async (req: Request, res: Response) => {
 }
 
 export const logout = (req: Request, res: Response) => {
-    console.log("Logout User");
-    res.json({ message: "Logout User" });
+    try {
+        res.cookie("jwt", "", { maxAge: 0 });
+        res.status(200).json({
+            message: "Logout successfully"
+        })
+    } catch (error) {
+        console.log("Error while logout", error);
+        res.status(500).json({
+            error: "Internal Server Error"
+        })
+    }
 }
 
