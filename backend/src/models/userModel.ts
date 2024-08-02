@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+}, {
+    //Member since <createdAt>
+    timestamps: true
 })
 
 const userModel = mongoose.model("User", userSchema);
