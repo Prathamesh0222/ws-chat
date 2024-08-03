@@ -9,7 +9,7 @@ interface BottomProps {
 const Bottom = ({label,to,buttonText}:BottomProps) => {
   return (
     <div className="text-white">
-    <div className="py-2 text-sm flex justify-center">
+    <div className="py-2 text-[15px] flex justify-center">
         <div>
             {label}
         </div>
