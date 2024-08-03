@@ -1,6 +1,6 @@
 
 interface InputBoxProps {
-    label : string
+    label? : string
     placeholder: string,
     type?: string,
     onChange?: React.ChangeEventHandler<HTMLInputElement>
