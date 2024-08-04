@@ -6,7 +6,7 @@ interface ButtonProps {
 
 const Button = ({label,onClick}:ButtonProps) => {
   return (
-    <div className="pt-5 pb-2">
+    <div className="pt-1 pb-2">
         <button 
         onClick={onClick}
         className="bg-[#FFF] font-thin text-black text-md rounded-lg py-2 w-[42vh]"
