@@ -1,12 +1,12 @@
-import Sidebar from "../components/Sidebar"
-
+import MessageContainer from "../components/messages/MessageContainer";
+import Sidebar from "../components/sidebar/Sidebar";
 
 const Home = () => {
   return (
-    <div className="sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden">
-        <Sidebar/>
+    <div className="flex h-screen items-center justify-center">
+      <Sidebar />
+      <MessageContainer />
     </div>
-  )
-}
-
-export default Home
+  );
+};
+export default Home;
