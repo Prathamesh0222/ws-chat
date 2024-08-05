@@ -5,6 +5,7 @@ import Checkbox from "../components/Checkbox";
 import { Heading } from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
+import useSignup from "../hooks/useSignup";
 
 const Signup = () => {
   const [inputs, setInputs] = useState({
@@ -15,12 +16,15 @@ const Signup = () => {
     gender: "",
   });
 
+  const { loading, signup } = useSignup();
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, gender: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log(inputs);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    await signup(inputs);
   };
 
   return (
@@ -58,26 +62,31 @@ const Signup = () => {
             type="password"
           />
           <div className="flex justify-center p-2">
-          <Checkbox
-            label="Male"
-            value="male"
-            checked={inputs.gender === "male"}
-            onChange={handleCheckboxChange}
-          />
-          <Checkbox
-            label="Female"
-            value="female"
-            checked={inputs.gender === "female"}
-            onChange={handleCheckboxChange}
-          />
+            <Checkbox
+              label="Male"
+              value="male"
+              checked={inputs.gender === "male"}
+              onChange={handleCheckboxChange}
+            />
+            <Checkbox
+              label="Female"
+              value="female"
+              checked={inputs.gender === "female"}
+              onChange={handleCheckboxChange}
+            />
           </div>
-          <Button label="Sign up" onClick={handleSubmit} />
+          <Button
+          className="mb-2"
+           disabled={loading} label={loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Sign up"
+            )} onClick={handleSubmit}/>
           <Bottom
             label="Already have an account?"
             buttonText="Sign in"
             to={"/signin"}
           />
-          
         </div>
       </div>
     </div>
