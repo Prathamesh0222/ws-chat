@@ -2,6 +2,7 @@ import { TiMessages } from "react-icons/ti";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import "../../index.css";
+import useConversation from "../../store/useConversation";
 
 const NoChatSelected = () => {
   return (
@@ -16,12 +17,12 @@ const NoChatSelected = () => {
 };
 
 const MessageContainer = () => {
-  const NoChat = false;
+  const [selectedConversation, setSelectedConversation] = useConversation();
   return (
     <div className="flex flex-col justify-center h-screen">
       <div className="rounded-r-lg border border-white border-opacity-15 bg-gray-900">
-        <div className="min-w-[450px] flex flex-col mx-auto h-[700px]">
-          {NoChat ? (
+        <div className="min-w-[450px] flex flex-col mx-auto h-[564px]">
+          {!selectedConversation ? (
             <NoChatSelected />
           ) : (
             <>
@@ -29,11 +30,9 @@ const MessageContainer = () => {
                 <span className="label-text">To:</span>{" "}
                 <span className="text-gray-900 font-bold">John doe</span>
               </div>
-              <div className="flex-1 overflow-hidden">
-                <div className="custom-scrollbar">
+              <div className="flex-1 overflow-auto h-96">
                   <Messages />
                 </div>
-              </div>
               <MessageInput />
             </>
           )}

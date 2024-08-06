@@ -14,13 +14,9 @@ const useLogin = () => {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post(
-        "http://localhost:3000/api/auth/signin",
-        {
-          username,
-          password,
-        }
-      );
+      const { data } = await axios.post("http://localhost:3000/api/auth/signin",{
+            username,password
+        });
       console.log(data);
       if (data.error) {
         throw new Error(data.error);
