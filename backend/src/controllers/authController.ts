@@ -57,9 +57,17 @@ export const signup = async (req: Request, res: Response) => {
 export const signin = async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ error: "Username and password are required" });
+        }
+
         const user = await userModel.findOne({
             username
         });
+        if (!user) {
+            return res.status(400).json({ error: "Invalid username or password" });
+        }
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
         if (!user || !isPasswordCorrect) {
             return res.status(400).json({
