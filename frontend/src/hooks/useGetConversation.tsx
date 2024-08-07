@@ -14,7 +14,9 @@ const useGetConversation = ():{loading:boolean, conversations:Conversation[]} =>
     const getConversation = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3000/api/users");
+        const response = await axios.get("http://localhost:3000/api/users",{
+          withCredentials:true,
+        });
         const { data } = response;
         if (data.error) {
           throw new Error(data.error);

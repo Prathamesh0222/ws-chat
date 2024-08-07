@@ -24,7 +24,17 @@ const useLogin = () => {
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Incorrect credentials', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
     } finally {
       setLoading(false);
     }
