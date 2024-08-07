@@ -2,10 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import connectDB from "./db/db";
-import cookieParser from "cookie-parser";
 import messageRoutes from "./routes/messageRoutes";
 import userRoutes from "./routes/userRoutes";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -20,7 +20,6 @@ app.use(cors(
         credentials: true,
     }
 ));
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);

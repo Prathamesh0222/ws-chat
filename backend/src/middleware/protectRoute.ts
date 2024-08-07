@@ -5,12 +5,14 @@ import userModel from "../models/userModel";
 const protectRoute = async (req: any, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.jwt;
+
         if (!token) {
             return res.status(401).json({
                 error: "Unauthorized: No Token provided"
             })
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET || "") as JwtPayload;
+
         if (!decoded) {
             return res.status(401).json({
                 error: "Unauthorized: Invalid Token"
@@ -24,7 +26,6 @@ const protectRoute = async (req: any, res: Response, next: NextFunction) => {
             })
         }
         req.user = user;
-
         next();
 
     } catch (error) {
